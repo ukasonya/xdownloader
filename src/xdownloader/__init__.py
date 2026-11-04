@@ -31,17 +31,12 @@ def main():
     p.add_argument("--pausa", type=float, default=1.0, help="Segundos entre peticiones")
     args = p.parse_args()
 
-    if importlib.util.find_spec("gallery_dl") is None:
-        sys.exit("Falta gallery-dl. Instálalo con: pip install -U gallery-dl")
-
     usuario = args.usuario.lstrip("@").strip()
     carpeta = Path(args.salida).expanduser() / usuario
     carpeta.mkdir(parents=True, exist_ok=True)
 
     cmd = [
-        sys.executable,
-        "-m",
-        "gallery_dl",
+        "gallery-dl",
         "-D",
         str(carpeta),
         "-f",
